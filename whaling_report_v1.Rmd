@@ -2,7 +2,12 @@
 title: "NB Whaling Museum Whaler Database"
 author: "Marianna Foos"
 date: "`r format(Sys.time(), '%m/%d/%Y')`"
-output: html_document
+output: 
+  html_document:
+    theme: journal
+    toc: true
+    css: "RLadies.css"
+    code_folding: show
 params:
   color: "purple"
 ---
