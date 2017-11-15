@@ -3,12 +3,15 @@ title: "NB Whaling Museum Whaler Database"
 author: "Marianna Foos"
 date: "`r format(Sys.time(), '%m/%d/%Y')`"
 output: html_document
+params:
+  color: "purple"
 ---
 
 ```{r globals, message=FALSE, echo=FALSE}
 library(dplyr)
 library(ggplot2)
 
+knitr::opts_chunk$set(fig.width = 9, fig.height = 7)
 crewlist <- read.table("whalemenDB_cleaned_again.tsv", sep = "\t", header = TRUE)
 ```
 
@@ -19,10 +22,11 @@ crewlist$departYear <- format(crewlist$ApproximateDeparture, "%Y")
 
 ### How did whaling wax and wane over the century?
 ```{r year-plot, echo=FALSE}
-ggplot(crewlist, aes(x = departYear)) + 
-  geom_bar() + 
+ggplot(crewlist %>% filter(!is.na(departYear)), aes(x = as.numeric(departYear))) + 
+  geom_bar(fill = params$color) + 
   ggtitle("New Bedford/Fairhaven Whaleship Departures, 1809-1927") +
-  theme(axis.text.x = element_text(angle=45, size=12, hjust = 1))
+  theme(axis.text.x = element_text(angle=45, size=10, hjust = 1)) +
+  scale_x_continuous(name = "Departure Year", breaks = seq(min(crewlist$departYear, na.rm = T), max(crewlist$departYear, na.rm = T), 5))
 ```
 
 ---
