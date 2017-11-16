@@ -2,14 +2,9 @@
 title: "NB Whaling Museum Whaler Database"
 author: "Marianna Foos"
 date: "`r format(Sys.time(), '%m/%d/%Y')`"
-output: 
-  html_document:
-    theme: journal
-    toc: true
-    css: "RLadies.css"
-    code_folding: show
+output: pdf_document
 params:
-  color: "purple"
+  color: "orange"
 ---
 
 ```{r globals, message=FALSE, echo=FALSE}
@@ -25,7 +20,7 @@ crewlist$ApproximateDeparture <- as.Date(crewlist$ApproximateDeparture, format =
 crewlist$departYear <- format(crewlist$ApproximateDeparture, "%Y")
 ```
 
-### How did whaling wax and wane over the century?
+## How did whaling wax and wane over the century?
 ```{r year-plot, echo=FALSE}
 ggplot(crewlist %>% filter(!is.na(departYear)), aes(x = as.numeric(departYear))) + 
   geom_bar(fill = params$color) + 
@@ -47,7 +42,7 @@ voyages <- crewlist %>%
   head(20)
 
 knitr::kable(voyages, caption = "Voyages Per Vessel")
-cat("\n")
+#cat("\n")
 ```
 
 ```{r ref.label="globals", eval=FALSE}
